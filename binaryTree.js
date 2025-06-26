@@ -1,6 +1,6 @@
 // Node factory
-function Node(value, left = null, right = null) {
-  return { value, left, right };
+function Node(data) {
+  return { data: data, left: null, right: null };
 }
 
 // Tree factory which accepts an array
