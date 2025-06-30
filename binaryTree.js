@@ -10,7 +10,7 @@ function NodeFactory(data) {
 function Tree(myArr) {
   // Sort and remove repeated values from the array
   let sortedUniqueArray = sortAndRemoveDuplicates(myArr);
-  return buildTree(sortedUniqueArray, 0, sortedUniqueArray.lenth - 1);
+  return buildTree(sortedUniqueArray, 0, sortedUniqueArray.length - 1);
 }
 
 function buildTree(arr, start, end) {
@@ -21,14 +21,14 @@ function buildTree(arr, start, end) {
   let mid = start + Math.floor((end - start) / 2);
 
   // Create root node
-  let root = NodeFactory();
+  let root = NodeFactory(arr[mid]);
 
   // Create left subtree
-  root.left = sortedArrayToBSTRecur(arr, start, mid - 1);
+  root.left = buildTree(arr, start, mid - 1);
 
   // Create right subtree
-  root.right = sortedArrayToBSTRecur(arr, mid + 1, end);
-
+  root.right = buildTree(arr, mid + 1, end);
+  console.log("I think it worked");
   return root;
 }
 
