@@ -10,7 +10,13 @@ function NodeFactory(data) {
 function Tree(myArr) {
   // Sort and remove repeated values from the array
   let sortedUniqueArray = sortAndRemoveDuplicates(myArr);
-  return buildTree(sortedUniqueArray, 0, sortedUniqueArray.length - 1);
+  let root = buildTree(sortedUniqueArray, 0, sortedUniqueArray.length - 1);
+
+  const getRoot = () => {
+    return root;
+  };
+
+  return { getRoot };
 }
 
 function buildTree(arr, start, end) {
@@ -64,4 +70,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-prettyPrint(Tree(myArr));
+let instanceOfTree = Tree(myArr);
+prettyPrint(instanceOfTree.getRoot());
