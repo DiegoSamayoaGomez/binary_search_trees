@@ -32,7 +32,38 @@ function Tree(myArr) {
     return node;
   };
 
-  return { getRoot, insert };
+  // Delete the given value, based of the node deleted it will search for a new value
+  // Cant use "delete" as function name because its a reserved name
+  const deleteItem = (value, node = root) => {
+    if (node === null) return null;
+
+    // Traverse the node based on the number of the value
+    if (value < node.data) {
+      node.left = deleteItem(value, node.left);
+    } else if (value > node.data) {
+      node.right = deleteItem(value, node.right);
+    } else {
+      // Node found
+      if (node.left === null && node.right === null) {
+        return null; // No children
+      } else if (node.left === null) {
+        return node.right; // One child (right)
+      } else if (node.right === null) {
+        return node.left; // One child (left)
+      } else {
+        // Two children: find inorder successor (smallest in right subtree)
+        let minLargerNode = node.right;
+        while (minLargerNode.left !== null) {
+          minLargerNode = minLargerNode.left;
+        }
+        node.data = minLargerNode.data;
+        node.right = deleteItem(minLargerNode.data, node.right);
+      }
+    }
+
+    return node;
+  };
+  return { getRoot, insert, deleteItem };
 }
 
 function buildTree(arr, start, end) {
@@ -89,4 +120,5 @@ console.log("SORTED AND UNIQUE: ", sortAndRemoveDuplicates(myArr));
 // Use of the functions
 let instanceOfTree = Tree(myArr);
 instanceOfTree.insert(2);
+instanceOfTree.deleteItem(2);
 prettyPrint(instanceOfTree.getRoot());
