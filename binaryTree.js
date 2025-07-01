@@ -12,11 +12,27 @@ function Tree(myArr) {
   let sortedUniqueArray = sortAndRemoveDuplicates(myArr);
   let root = buildTree(sortedUniqueArray, 0, sortedUniqueArray.length - 1);
 
+  // Returns the root value to use it in the prettyPrint function
   const getRoot = () => {
     return root;
   };
 
-  return { getRoot };
+  // Insert the given value, it will always be inserted as a leaf node
+  const insert = (value, node = root) => {
+    if (node === null) return NodeFactory(value);
+
+    // If the given value is smaller than the root, insert it in the left side
+    if (value < node.data) {
+      node.left = insert(value, node.left);
+    }
+    // If the given value is bigger than the root, insert it in the right side
+    else if (value > node.data) {
+      node.right = insert(value, node.right);
+    }
+    return node;
+  };
+
+  return { getRoot, insert };
 }
 
 function buildTree(arr, start, end) {
@@ -53,10 +69,6 @@ const sortAndRemoveDuplicates = (myArr) => {
   return myNewArr;
 };
 
-// Check if the function works
-console.log("Original Array", myArr);
-console.log("SORTED AND UNIQUE: ", sortAndRemoveDuplicates(myArr));
-
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
     return;
@@ -70,5 +82,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+// Check if the function works
+console.log("Original Array", myArr);
+console.log("SORTED AND UNIQUE: ", sortAndRemoveDuplicates(myArr));
+
+// Use of the functions
 let instanceOfTree = Tree(myArr);
+instanceOfTree.insert(2);
 prettyPrint(instanceOfTree.getRoot());
