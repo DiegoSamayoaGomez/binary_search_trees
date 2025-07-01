@@ -63,7 +63,16 @@ function Tree(myArr) {
 
     return node;
   };
-  return { getRoot, insert, deleteItem };
+  // Return the with the given value
+  const find = (value, node = root) => {
+    if (node === null) return null;
+
+    if (node.data === value) return node;
+
+    if (value < node.data) return find(value, node.left);
+    return find(value, node.right);
+  };
+  return { getRoot, insert, deleteItem, find };
 }
 
 function buildTree(arr, start, end) {
@@ -121,4 +130,5 @@ console.log("SORTED AND UNIQUE: ", sortAndRemoveDuplicates(myArr));
 let instanceOfTree = Tree(myArr);
 instanceOfTree.insert(2);
 instanceOfTree.deleteItem(2);
+prettyPrint(instanceOfTree.find(67));
 prettyPrint(instanceOfTree.getRoot());
