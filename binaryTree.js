@@ -117,6 +117,19 @@ function Tree(myArr) {
       inOrderForEach(callback, node.right);
     }
   };
+
+  // Take a function and traverse it in POST ORDER AS DFS
+  const postOrderForEach = (callback, node = root) => {
+    if (typeof callback !== "function") {
+      throw new Error("A callback function is required");
+    }
+
+    if (node !== null) {
+      postOrderForEach(callback, node.left);
+      postOrderForEach(callback, node.right);
+      callback(node);
+    }
+  };
   return {
     getRoot,
     insert,
@@ -125,6 +138,7 @@ function Tree(myArr) {
     levelOrderForEach,
     preOrderForEach,
     inOrderForEach,
+    postOrderForEach,
   };
 }
 
