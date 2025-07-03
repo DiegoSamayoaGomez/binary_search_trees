@@ -92,7 +92,27 @@ function Tree(myArr) {
     }
   };
 
-  return { getRoot, insert, deleteItem, find, levelOrderForEach };
+  // Take a function and traverse it in PREORDER AS DFS
+  const preOrderForEach = (callback, node = root) => {
+    if (typeof callback !== "function") {
+      throw new Error("A callback function is required");
+    }
+
+    if (node !== null) {
+      callback(node);
+      preOrderForEach(callback, node.left);
+      preOrderForEach(callback, node.right);
+    }
+  };
+
+  return {
+    getRoot,
+    insert,
+    deleteItem,
+    find,
+    levelOrderForEach,
+    preOrderForEach,
+  };
 }
 
 function buildTree(arr, start, end) {
