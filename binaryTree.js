@@ -70,9 +70,29 @@ function Tree(myArr) {
     if (node.data === value) return node;
 
     if (value < node.data) return find(value, node.left);
+
     return find(value, node.right);
   };
-  return { getRoot, insert, deleteItem, find };
+
+  // Use a function as a parameter and traverse the tree in BFS
+  const levelOrderForEach = (callback) => {
+    if (typeof callback !== "function") {
+      throw new Error("A callback function is required");
+    }
+
+    let queue = [];
+    queue.push(root);
+
+    while (queue.length > 0) {
+      let current = queue.shift();
+      callback(current);
+
+      if (current.left !== null) queue.push(current.left);
+      if (current.right !== null) queue.push(current.right);
+    }
+  };
+
+  return { getRoot, insert, deleteItem, find, levelOrderForEach };
 }
 
 function buildTree(arr, start, end) {
