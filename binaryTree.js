@@ -105,6 +105,18 @@ function Tree(myArr) {
     }
   };
 
+  // Take a function and traverse it in INORDER AS DFS
+  const inOrderForEach = (callback, node = root) => {
+    if (typeof callback !== "function") {
+      throw new Error("A callback function is required");
+    }
+
+    if (node !== null) {
+      inOrderForEach(callback, node.left);
+      callback(node);
+      inOrderForEach(callback, node.right);
+    }
+  };
   return {
     getRoot,
     insert,
@@ -112,6 +124,7 @@ function Tree(myArr) {
     find,
     levelOrderForEach,
     preOrderForEach,
+    inOrderForEach,
   };
 }
 
