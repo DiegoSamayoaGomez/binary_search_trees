@@ -130,6 +130,23 @@ function Tree(myArr) {
       callback(node);
     }
   };
+
+  // Return the height of the node based on the given value
+
+  const height = (value) => {
+    // Use the find FN to see if the value exists
+    const node = find(value);
+    // If it doesnt just end the execution
+    if (node === null) return null;
+
+    // Otherwise keep until calc the height
+    const calcHeight = (node) => {
+      if (node === null) return -1;
+      return 1 + Math.max(calcHeight(node.left), calcHeight(node.right));
+    };
+    return calcHeight(node);
+  };
+
   return {
     getRoot,
     insert,
@@ -139,6 +156,7 @@ function Tree(myArr) {
     preOrderForEach,
     inOrderForEach,
     postOrderForEach,
+    height,
   };
 }
 
