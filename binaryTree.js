@@ -165,12 +165,18 @@ function Tree(myArr) {
     // Exit function, if the node its empty its balanced
     if (node === null) return true;
 
+    // Use this piece of code from height because if I call height() it will always return null
+    const calcHeight = (node) => {
+      if (node === null) return -1;
+      return 1 + Math.max(calcHeight(node.left), calcHeight(node.right));
+    };
+
     // Use the existing FN to get the height and use it to check if its balanced
-    let leftHeight = height(node.left);
-    let rightHeight = height(node.right);
+    let leftHeight = calcHeight(node.left);
+    let rightHeight = calcHeight(node.right);
+    // console.log(leftHeight, rightHeight);
 
     // If the result of the left minus right is bigger than 1 its not balanced
-    console.log(leftHeight, rightHeight);
     if (Math.abs(leftHeight - rightHeight) > 1) return false;
 
     return isBalanced(node.left) && isBalanced(node.right);
