@@ -132,7 +132,6 @@ function Tree(myArr) {
   };
 
   // Return the height of the node based on the given value
-
   const height = (value) => {
     // Use the find FN to see if the value exists
     const node = find(value);
@@ -147,6 +146,36 @@ function Tree(myArr) {
     return calcHeight(node);
   };
 
+  // Return the depth of the node based on the given value
+  const depth = (value, node = root, currentDepth = 0) => {
+    // If the node is empty, just end the execution
+    if (node === null) return null;
+
+    // Check if the data is the same as the given value, if so return the currentDepth
+    if (node.data === value) return currentDepth;
+
+    //console.log("XDD --->", node.data, value, currentDepth);
+
+    if (value < node.data) return depth(value, node.left, currentDepth + 1);
+    return depth(value, node.right, currentDepth + 1);
+  };
+
+  // Check if the given tree is balanced in each node
+  const isBalanced = (node = root) => {
+    // Exit function, if the node its empty its balanced
+    if (node === null) return true;
+
+    // Use the existing FN to get the height and use it to check if its balanced
+    let leftHeight = height(node.left);
+    let rightHeight = height(node.right);
+
+    // If the result of the left minus right is bigger than 1 its not balanced
+    console.log(leftHeight, rightHeight);
+    if (Math.abs(leftHeight - rightHeight) > 1) return false;
+
+    return isBalanced(node.left) && isBalanced(node.right);
+  };
+
   return {
     getRoot,
     insert,
@@ -157,6 +186,8 @@ function Tree(myArr) {
     inOrderForEach,
     postOrderForEach,
     height,
+    depth,
+    isBalanced,
   };
 }
 
@@ -215,5 +246,10 @@ console.log("SORTED AND UNIQUE: ", sortAndRemoveDuplicates(myArr));
 let instanceOfTree = Tree(myArr);
 instanceOfTree.insert(2);
 instanceOfTree.deleteItem(2);
-prettyPrint(instanceOfTree.find(67));
+//prettyPrint(instanceOfTree.find(67));
 prettyPrint(instanceOfTree.getRoot());
+const xd = instanceOfTree.getRoot();
+
+console.log(instanceOfTree.height(8));
+console.log(instanceOfTree.depth(6345));
+console.log(instanceOfTree.isBalanced(instanceOfTree.getRoot()));
