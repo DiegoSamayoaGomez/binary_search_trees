@@ -224,7 +224,7 @@ function buildTree(arr, start, end) {
 
   // Create right subtree
   root.right = buildTree(arr, mid + 1, end);
-  console.log("I think it worked");
+  //console.log("I think it worked");
   return root;
 }
 
@@ -261,22 +261,37 @@ console.log("Original Array", myArr);
 console.log("SORTED AND UNIQUE: ", sortAndRemoveDuplicates(myArr));
 
 // Use of the functions
+// --- EXAMPLES ---
 let instanceOfTree = Tree(myArr);
+// 0. Print the current tree in a visual way (Provided by ODIN)
+// prettyPrint(node)
+
+// 1. Node
+// It is used inside
+
+// 2. Tree
+// It is used inside
+
+// 3. buildTree
+// It is used inside
+
+// 4. Insert a value in the current tree
 instanceOfTree.insert(2);
+
+// Delete a value in the current tree
 instanceOfTree.deleteItem(2);
-//prettyPrint(instanceOfTree.find(67));
+
+// Use this function to print your tree in an visual way
 prettyPrint(instanceOfTree.getRoot());
-const xd = instanceOfTree.getRoot();
 
-console.log(instanceOfTree.height(8));
-console.log(instanceOfTree.depth(6345));
-console.log(instanceOfTree.isBalanced(instanceOfTree.getRoot()));
-console.log("xd");
+// 5. Print the node of the given value
+console.log(instanceOfTree.find(6345));
 
-// Print all values in level order
+// 6. Print all values in level order
 console.log("Level order:");
 instanceOfTree.levelOrderForEach((node) => console.log(node.data));
 
+// 7.
 // In-order (should print sorted values)
 console.log("In-order:");
 instanceOfTree.inOrderForEach((node) => console.log(node.data));
@@ -288,3 +303,15 @@ instanceOfTree.preOrderForEach((node) => console.log(node.data));
 // Post-order
 console.log("Post-order:");
 instanceOfTree.postOrderForEach((node) => console.log(node.data));
+
+// 8. Print the height of the given value
+console.log(instanceOfTree.height(8));
+
+// 9. Print the depth of the given value
+console.log(instanceOfTree.depth(6345));
+
+// 10. Check if the current tree is balanced
+console.log(instanceOfTree.isBalanced(instanceOfTree.getRoot()));
+
+// 11. Rebalance the current tree
+instanceOfTree.rebalance();
