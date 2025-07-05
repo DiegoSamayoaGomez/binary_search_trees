@@ -182,6 +182,17 @@ function Tree(myArr) {
     return isBalanced(node.left) && isBalanced(node.right);
   };
 
+  // Rebalance an unbalanced tree by using a traversal method to
+  // provide a new array ot the buildTree function
+  const rebalance = () => {
+    // Create a new empty array
+    let values = [];
+    // Use and existing traverse method and push the values to the new array
+    inOrderForEach((node) => values.push(node.data));
+    // Call the build tree and rebuild it
+    root = buildTree(values, 0, values.length - 1);
+  };
+
   return {
     getRoot,
     insert,
@@ -194,6 +205,7 @@ function Tree(myArr) {
     height,
     depth,
     isBalanced,
+    rebalance,
   };
 }
 
@@ -259,3 +271,20 @@ const xd = instanceOfTree.getRoot();
 console.log(instanceOfTree.height(8));
 console.log(instanceOfTree.depth(6345));
 console.log(instanceOfTree.isBalanced(instanceOfTree.getRoot()));
+console.log("xd");
+
+// Print all values in level order
+console.log("Level order:");
+instanceOfTree.levelOrderForEach((node) => console.log(node.data));
+
+// In-order (should print sorted values)
+console.log("In-order:");
+instanceOfTree.inOrderForEach((node) => console.log(node.data));
+
+// Pre-order
+console.log("Pre-order:");
+instanceOfTree.preOrderForEach((node) => console.log(node.data));
+
+// Post-order
+console.log("Post-order:");
+instanceOfTree.postOrderForEach((node) => console.log(node.data));
